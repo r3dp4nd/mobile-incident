@@ -12,6 +12,10 @@ import Routing from "./views/Routing";
 
 const Stack = createStackNavigator();
 
+// Redux
+import { Provider } from "react-redux";
+import store from "./store";
+
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
@@ -36,40 +40,42 @@ export default function App() {
 
   return (
     <Root>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              title: "Iniciar Sesión",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="NewPassword"
-            component={NewPassword}
-            options={{
-              title: "Iniciar Sesión",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Routing"
-            component={Routing}
-            options={{
-              title: "Ruta",
-            }}
-          />
-          <Stack.Screen
-            name="Incident"
-            component={Incident}
-            options={{
-              title: "Registrar Incidente",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                title: "Iniciar Sesión",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="NewPassword"
+              component={NewPassword}
+              options={{
+                title: "Iniciar Sesión",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Routing"
+              component={Routing}
+              options={{
+                title: "Ruta",
+              }}
+            />
+            <Stack.Screen
+              name="Incident"
+              component={Incident}
+              options={{
+                title: "Registrar Incidente",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </Root>
   );
 }

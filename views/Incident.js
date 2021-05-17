@@ -37,11 +37,34 @@ const typeOperation = [
 const Incident = () => {
   const [categoryIncident, setCategoryIncident] = useState("");
   const [typeIncident, setTypeIncident] = useState("");
-  console.log(categoryIncident);
-  console.log(typeIncident);
+  const [incidentDescription, setIncidentDescription] = useState("");
+  const [mensaje, setMensaje] = useState(null);
+
+  const handleSubmit = () => {
+    if (
+      categoryIncident.trim() === "" ||
+      typeIncident.trim() === "" ||
+      incidentDescription.trim() === ""
+    ) {
+      setMensaje("Su nueva contraseña debe de ser de almenos 6 caracteres");
+      return;
+    }
+
+    const incidente = { categoryIncident, typeIncident, incidentDescription };
+
+    // PReparando para enviar
+
+    console.log(incidente, " antes de guardar incidencia");
+
+    setCategoryIncident(0);
+    setTypeIncident(0);
+    setIncidentDescription("");
+  };
 
   return (
-    <Container style={[globalStyles.contenedor, { backgroundColor: "#efefef" }]}>
+    <Container
+      style={[globalStyles.contenedor, { backgroundColor: "#efefef" }]}
+    >
       <View style={globalStyles.formulario}>
         <Form>
           <Item inlineLabel last style={globalStyles.input}>
@@ -102,10 +125,16 @@ const Incident = () => {
             rowSpan={5}
             bordered
             placeholder="Ingrese la descripcion de la incidencia"
+            onChangeText={(texto) => setIncidentDescription(texto)}
           ></Textarea>
         </Form>
 
-        <Button block square style={globalStyles.boton}>
+        <Button
+          block
+          square
+          style={globalStyles.boton}
+          onPress={() => handleSubmit()}
+        >
           <Text style={globalStyles.botonTexto}>Enviar</Text>
         </Button>
       </View>
