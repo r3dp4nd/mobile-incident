@@ -41,7 +41,7 @@ const Incident = () => {
   console.log(typeIncident);
 
   return (
-    <Container style={globalStyles.contenedor}>
+    <Container style={[globalStyles.contenedor, { backgroundColor: "#efefef" }]}>
       <View style={globalStyles.formulario}>
         <Form>
           <Item inlineLabel last style={globalStyles.input}>

@@ -8,7 +8,7 @@ const NewPassword = () => {
   const navigation = useNavigation();
   return (
     <Container
-      style={[globalStyles.contenedor, { backgroundColor: "#e84347" }]}
+      style={[globalStyles.contenedor, { backgroundColor: "#2d3d54" }]}
     >
       <View style={globalStyles.contenido}>
         <H1 style={globalStyles.titulo}>Cambiar Contraseña</H1>

@@ -10,10 +10,10 @@ const Login = () => {
 
   return (
     <Container
-      style={[globalStyles.contenedor, { backgroundColor: "#e84347" }]}
+      style={[globalStyles.contenedor, { backgroundColor: "#2d3d54" }]}
     >
       <View style={globalStyles.contenido}>
-        <H1 style={globalStyles.titulo}>Login</H1>
+        <H1 style={[globalStyles.titulo,{ color: '#FFF'}]}>Login</H1>
 
         <Form>
           <Item inlineLabel last style={globalStyles.input}>
@@ -30,7 +30,7 @@ const Login = () => {
         </Button>
 
         <Text
-          onPress={() => navigation.navigate("Incident")}
+          onPress={() => navigation.navigate("Routing")}
           style={globalStyles.enlace}
         >
           Cambiar Password

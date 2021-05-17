@@ -18,10 +18,11 @@ const globalStyles = StyleSheet.create({
   },
   titulo: {
     textAlign: "center",
-    marginBottom: 20,
     fontSize: 32,
     fontWeight: "bold",
-    color: "#FFF",
+    marginTop: 20,
+    marginBottom: 20,
+    color: "#000",
   },
   input: {
     backgroundColor: "#FFF",
