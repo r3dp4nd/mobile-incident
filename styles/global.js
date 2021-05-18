@@ -29,7 +29,7 @@ const globalStyles = StyleSheet.create({
     marginBottom: 20,
   },
   boton: {
-    backgroundColor: "#28303B",
+    backgroundColor: "#009a9a",
     marginTop: 20,
   },
   botonTexto: {

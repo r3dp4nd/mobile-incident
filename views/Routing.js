@@ -16,6 +16,14 @@ import globalStyles from "../styles/global";
 const Routing = () => {
   const navigation = useNavigation();
 
+  const startRouting = () => {
+    console.log("Iniciando Ruta");
+  };
+
+  const endRouting = () => {
+    console.log("Terminando Ruta");
+  };
+
   const writeIncident = () => {
     navigation.navigate("Incident");
     console.log("Enviando a incidente");
@@ -28,7 +36,7 @@ const Routing = () => {
         <CardItem>
           <Body>
             <Text style={styles.textoMargin}>Ruta: {}</Text>
-            <Text style={styles.textoMargin} >Direccion</Text>
+            <Text style={styles.textoMargin}>Direccion</Text>
             <Text style={styles.textoMargin}>Vehiculo:</Text>
             <Text style={styles.textoMargin}>Material:</Text>
             <Text style={styles.textoMargin}>Inicio:</Text>
@@ -36,10 +44,15 @@ const Routing = () => {
           </Body>
         </CardItem>
         <View style={styles.content}>
-          <Button rounded success style={styles.buttons}>
+          <Button
+            rounded
+            success
+            style={styles.buttons}
+            onPress={() => startRouting()}
+          >
             <Text>Iniciar</Text>
           </Button>
-          <Button rounded style={styles.buttons}>
+          <Button rounded style={styles.buttons} onPress={() => endRouting()}>
             <Text>Terminar</Text>
           </Button>
           <Button

@@ -42,8 +42,8 @@ const Incident = () => {
 
   const handleSubmit = () => {
     if (
-      categoryIncident.trim() === "" ||
-      typeIncident.trim() === "" ||
+      categoryIncident === "" ||
+      typeIncident === "" ||
       incidentDescription.trim() === ""
     ) {
       setMensaje("Su nueva contraseña debe de ser de almenos 6 caracteres");

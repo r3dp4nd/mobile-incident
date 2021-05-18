@@ -24,6 +24,8 @@ const Login = () => {
     // enviar
     console.log(user, "Datos del usuario");
 
+    navigation.navigate("Routing")
+
     setUsername("");
     setPassword("");
   };
@@ -62,7 +64,7 @@ const Login = () => {
         </Button>
 
         <Text
-          onPress={() => navigation.navigate("Routing")}
+          onPress={() => navigation.navigate("NewPassword")}
           style={globalStyles.enlace}
         >
           Cambiar Password
