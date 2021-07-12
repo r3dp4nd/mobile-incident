@@ -1,47 +1,65 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Button, Container, Form, H1, Input, Item, Text } from "native-base";
-import { View } from "react-native";
-import globalStyles from "../styles/global";
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Button, Container, Form, H1, Input, Item, Text } from 'native-base';
+import { View } from 'react-native';
+import globalStyles from '../styles/global';
+import { loginActions } from '../actions/authActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   // React Navigation
   const navigation = useNavigation();
 
+  const autenticado = useSelector(state => state.auths.autenticado)
+
+  useEffect(() => {
+    if (autenticado) {
+      navigation.navigate('Routing');
+    }
+  }, [autenticado])
+
   // Seteando estados
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState(null);
 
-  const submitForm = () => {
-    if (username.trim() === "" || password.trim() === "") {
-      setMensaje("Su nueva contraseña debe de ser de almenos 6 caracteres");
+  const submitForm = async () => {
+    if (username.trim() === '' || password.trim() === '') {
+      setMensaje('Ingrese su correo electronico y su contraseña');
+      console.log('campos vacios');
       return;
     }
 
-    const user = { username, password };
+    const user = { username: username.toLowerCase(), password };
 
     // enviar
-    console.log(user, "Datos del usuario");
+    console.log(user, 'Datos del usuario');
 
-    navigation.navigate("Routing")
+    dispatch(loginActions(user));
 
-    setUsername("");
-    setPassword("");
+    // navigation.navigate('Routing');
+
+    setUsername('');
+    setPassword('');
   };
 
   return (
     <Container
-      style={[globalStyles.contenedor, { backgroundColor: "#2d3d54" }]}
+      style={[globalStyles.contenedor, { backgroundColor: '#2d3d54' }]}
     >
       <View style={globalStyles.contenido}>
-        <H1 style={[globalStyles.titulo, { color: "#FFF" }]}>Aplicacion de Incidencias D&D</H1>
+        <H1 style={[globalStyles.titulo, { color: '#FFF' }]}>
+          Aplicacion de Incidencias D&D
+        </H1>
 
         <Form>
           <Item inlineLabel last style={globalStyles.input}>
             <Input
               placeholder="Correo Electronico"
               onChangeText={(texto) => setUsername(texto)}
+              value={username}
             />
           </Item>
 
@@ -50,6 +68,7 @@ const Login = () => {
               secureTextEntry={true}
               placeholder="Password"
               onChangeText={(texto) => setPassword(texto)}
+              value={password}
             />
           </Item>
         </Form>
@@ -64,7 +83,7 @@ const Login = () => {
         </Button>
 
         <Text
-          onPress={() => navigation.navigate("NewPassword")}
+          onPress={() => navigation.navigate('NewPassword')}
           style={globalStyles.enlace}
         >
           Cambiar Password

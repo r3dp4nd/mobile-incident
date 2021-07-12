@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import clientAxios from '../config/axios';
+import tokenAuth from '../config/token';
 import {
   LOGIN,
   LOGIN_ERROR,
@@ -6,29 +9,34 @@ import {
   UPDATE_AUTH,
   UPDATE_AUTH_ERROR,
   UPDATE_AUTH_SUCCESS,
-} from "../types";
+} from '../types';
 
 //#region Login
 export function loginActions(auth) {
   return async (dispatch) => {
-    // console.log("Login");
     dispatch(login());
     try {
-      console.log(auth, "Desde Login Actions");
-      const result = await clientAxios.post("/auth/login", auth);
-      console.log(result.data.body.token, "AuthActions");
+      console.log(auth, 'Desde Login Actions');
 
-      dispatch(loginSuccess(result.data.body.token));
+      const {
+        data: {
+          body: { token },
+        },
+      } = await clientAxios.post('/auth/login', auth);
+
+      await AsyncStorage.setItem('token', token);
+
+      await dispatch(loginSuccess(token));
 
       dispatch(getUserAuthenticateAction());
     } catch (error) {
-      console.log(error.response.data.body.msg);
-      const alerta = {
-        msg: error.response.data.body.msg,
-        categoria: "",
-      };
+      console.log(error);
+      // const alerta = {
+      //   msg: error.response.data.body.msg,
+      //   categoria: '',
+      // };
 
-      dispatch(loginError(true, alerta));
+      // dispatch(loginError(true, alerta));
     }
   };
 }
@@ -51,16 +59,18 @@ const loginError = (estado, alerta) => ({
 //#region OBTENER USUARIO
 export function getUserAuthenticateAction() {
   return async (dispatch) => {
-    const token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem('token');
 
     if (token) {
       tokenAuth(token);
     }
 
+    console.log('obteniendo el usuario')
+
     try {
-      const respuesta = await clientAxios.get("/auth/login");
-      // console.log(respuesta.data.body,'Obteniendo datos del usuario');
-      await dispatch(setUser(respuesta.data.body));
+      const respuesta = await clientAxios.get('/auth/login');
+      console.log(respuesta.data.body,'Obteniendo datos del usuario');
+      dispatch(setUser(respuesta.data.body));
     } catch (error) {
       console.log(error);
       dispatch(loginError());
@@ -79,9 +89,9 @@ export function updatePasswordAction(newPass) {
   return async (dispatch) => {
     dispatch(updatePassword());
 
-    console.log(newPass, "Actualizando usuario");
+    console.log(newPass, 'Actualizando usuario');
     try {
-      const result = await clientAxios.put("/auth/login/1", newPass);
+      const result = await clientAxios.put('/auth/login/1', newPass);
       console.log(result.data);
       dispatch(updatePasswordSuccess());
     } catch (error) {

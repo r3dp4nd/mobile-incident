@@ -6,7 +6,7 @@ import {
   UPDATE_AUTH,
   UPDATE_AUTH_SUCCESS,
   UPDATE_AUTH_ERROR,
-} from "../types";
+} from '../types';
 
 const initialState = {
   token: null,
@@ -18,7 +18,7 @@ const initialState = {
   cargando: true,
 };
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, {type , payload}) => {
   switch (type) {
     case LOGIN:
     case UPDATE_AUTH:
@@ -38,6 +38,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         autenticado: true,
+        token: payload,
         loading: false,
       };
 
