@@ -32,14 +32,14 @@ const Routing = () => {
   return (
     <Content style={{ backgroundColor: "#efefef", marginHorizontal: "2.5%" }}>
       <Card>
-        <H1 style={globalStyles.titulo}>Bienvenido: {`Olek`}</H1>
+        <H1 style={globalStyles.titulo}>Bienvenido: {`Roger Durand Durand`}</H1>
         <CardItem>
           <Body>
-            <Text style={styles.textoMargin}>Ruta: {}</Text>
-            <Text style={styles.textoMargin}>Direccion</Text>
-            <Text style={styles.textoMargin}>Vehiculo:</Text>
-            <Text style={styles.textoMargin}>Material:</Text>
-            <Text style={styles.textoMargin}>Inicio:</Text>
+            <Text style={styles.textoMargin}>Ruta: </Text>
+            <Text style={styles.textoMargin}>Direccion: Av Brasil #1785</Text>
+            <Text style={styles.textoMargin}>Vehiculo: HB-451 </Text>
+            <Text style={styles.textoMargin}>Material: Metanol </Text>
+            <Text style={styles.textoMargin}>Inicio: </Text>
             <Text style={styles.textoMargin}>Termino:</Text>
           </Body>
         </CardItem>

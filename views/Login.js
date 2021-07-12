@@ -35,7 +35,7 @@ const Login = () => {
       style={[globalStyles.contenedor, { backgroundColor: "#2d3d54" }]}
     >
       <View style={globalStyles.contenido}>
-        <H1 style={[globalStyles.titulo, { color: "#FFF" }]}>Login</H1>
+        <H1 style={[globalStyles.titulo, { color: "#FFF" }]}>Aplicacion de Incidencias D&D</H1>
 
         <Form>
           <Item inlineLabel last style={globalStyles.input}>

@@ -44,7 +44,7 @@ const NewPassword = () => {
       style={[globalStyles.contenedor, { backgroundColor: "#2d3d54" }]}
     >
       <View style={globalStyles.contenido}>
-        <H1 style={globalStyles.titulo}>Cambiar Contraseña</H1>
+        <H1 style={[globalStyles.titulo, { color: "#FFF" }]}>Cambiar Contraseña</H1>
 
         <Form>
           <Item inlineLabel last style={globalStyles.input}>

@@ -4,6 +4,7 @@ import {
   LOGIN_SUCCESS,
   SET_USER,
   UPDATE_AUTH,
+  UPDATE_AUTH_SUCCESS,
   UPDATE_AUTH_ERROR,
 } from "../types";
 
