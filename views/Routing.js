@@ -19,8 +19,8 @@ const Routing = () => {
 
   const usuario = useSelector((state) => state.auths.usuario);
   const routing = useSelector((state) => state.routings.routing);
-  console.log(routing, 'desde routing');
-  console.log(usuario);
+  // console.log(routing, 'desde routing');
+  // console.log(usuario);
 
   const startRouting = () => {
     console.log('Iniciando Ruta');
@@ -66,7 +66,7 @@ const Routing = () => {
             </Text>
             <Text style={styles.textoMargin}>
               Inicio:{' '}
-              {routingStartDate ? convertDateFormat(routingStartDate) : ''}{' '}
+              {routingStartDate ? convertDateFormat(routingStartDate) : ''}
             </Text>
             <Text style={styles.textoMargin}>
               Termino: {routingEndDate ? convertDateFormat(routingEndDate) : ''}

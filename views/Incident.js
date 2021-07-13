@@ -7,63 +7,79 @@ import {
   Textarea,
   Text,
   Content,
-} from "native-base";
-import React, { useState } from "react";
-import { View } from "react-native";
-import globalStyles from "../styles/global";
+} from 'native-base';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerIncidentActions } from '../actions/incidentActions';
+import globalStyles from '../styles/global';
 
 const typeVehicle = [
-  { id: 1, label: "Caja de cambios" },
-  { id: 2, label: "Neumaticos" },
-  { id: 3, label: "Motor" },
-  { id: 4, label: "Frenos" },
-  { id: 5, label: "Falla mecanica" },
-  { id: 6, label: "Tanque de cisterna" },
+  { id: 1, label: 'Caja de cambios' },
+  { id: 2, label: 'Neumaticos' },
+  { id: 3, label: 'Motor' },
+  { id: 4, label: 'Frenos' },
+  { id: 5, label: 'Falla mecanica' },
+  { id: 6, label: 'Tanque de cisterna' },
 ];
 
 const typeDriver = [
-  { id: 7, label: "Perdida de tiempo" },
-  { id: 8, label: "Fuera de comunicacion" },
+  { id: 7, label: 'Perdida de tiempo' },
+  { id: 8, label: 'Fuera de comunicacion' },
 ];
 
 const typeOperation = [
-  { id: 9, label: "Accidente de vehiculo" },
-  { id: 10, label: "Exceso de velocidad" },
-  { id: 11, label: "Mala maniobra" },
-  { id: 12, label: "Inprudencia del peaton" },
-  { id: 13, label: "Mal estado de la pista" },
+  { id: 9, label: 'Accidente de vehiculo' },
+  { id: 10, label: 'Exceso de velocidad' },
+  { id: 11, label: 'Mala maniobra' },
+  { id: 12, label: 'Inprudencia del peaton' },
+  { id: 13, label: 'Mal estado de la pista' },
 ];
 
 const Incident = () => {
-  const [categoryIncident, setCategoryIncident] = useState("");
-  const [typeIncident, setTypeIncident] = useState("");
-  const [incidentDescription, setIncidentDescription] = useState("");
+  const dispatch = useDispatch();
+
+  const routing = useSelector((state) => state.routings.routing);
+  // console.log(routing, ' Incident');
+
+  const [categoryIncident, setCategoryIncident] = useState('');
+  const [typeIncident, setTypeIncident] = useState('');
+  const [incidentDescription, setIncidentDescription] = useState('');
   const [mensaje, setMensaje] = useState(null);
 
   const handleSubmit = () => {
     if (
-      categoryIncident === "" ||
-      typeIncident === "" ||
-      incidentDescription.trim() === ""
+      categoryIncident === '' ||
+      typeIncident === '' ||
+      incidentDescription.trim() === ''
     ) {
-      setMensaje("Su nueva contraseña debe de ser de almenos 6 caracteres");
+      setMensaje('Su nueva contraseña debe de ser de almenos 6 caracteres');
       return;
     }
 
-    const incidente = { categoryIncident, typeIncident, incidentDescription };
+    const incidente = {
+      codRouting: routing.codRouting,
+      categoryIncident,
+      typeIncident,
+      incidentDescription,
+    };
 
     // PReparando para enviar
 
-    console.log(incidente, " antes de guardar incidencia");
+    console.log(incidente, ' antes de guardar incidencia');
+
+    dispatch(registerIncidentActions(incidente));
 
     setCategoryIncident(0);
     setTypeIncident(0);
-    setIncidentDescription("");
+    setIncidentDescription('');
   };
+
+  if (!routing) return null;
 
   return (
     <Container
-      style={[globalStyles.contenedor, { backgroundColor: "#efefef" }]}
+      style={[globalStyles.contenedor, { backgroundColor: '#efefef' }]}
     >
       <View style={globalStyles.formulario}>
         <Form>
