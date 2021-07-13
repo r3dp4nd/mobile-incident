@@ -1,11 +1,14 @@
-import { GET_ROUTING, GET_ROUTING_ERROR, GET_ROUTING_SUCCESS } from "../types";
+import clientAxios from '../config/axios';
+import { GET_ROUTING, GET_ROUTING_ERROR, GET_ROUTING_SUCCESS } from '../types';
 
-export function getRoutingActions() {
-  return (dispatch) => {
+export function getRoutingActions(id) {
+  return async (dispatch) => {
     dispatch(getRouting(true));
 
     try {
-      dispatch(getRoutingSuccess(true));
+      const result = await clientAxios.get(`/routing/${id}`);
+      // console.log(result.data.body);
+      dispatch(getRoutingSuccess(result.data.body));
     } catch (error) {
       console.log(error);
       dispatch(getRoutingError(true));

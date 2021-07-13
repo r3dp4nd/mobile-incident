@@ -10,13 +10,13 @@ import {
   UPDATE_AUTH_ERROR,
   UPDATE_AUTH_SUCCESS,
 } from '../types';
+import { getRoutingActions } from './routingActions';
 
 //#region Login
 export function loginActions(auth) {
   return async (dispatch) => {
     dispatch(login());
     try {
-      console.log(auth, 'Desde Login Actions');
 
       const {
         data: {
@@ -65,12 +65,12 @@ export function getUserAuthenticateAction() {
       tokenAuth(token);
     }
 
-    console.log('obteniendo el usuario')
 
     try {
       const respuesta = await clientAxios.get('/auth/login');
-      console.log(respuesta.data.body,'Obteniendo datos del usuario');
       dispatch(setUser(respuesta.data.body));
+
+      dispatch(getRoutingActions(respuesta.data.body.codUser));
     } catch (error) {
       console.log(error);
       dispatch(loginError());
@@ -89,10 +89,8 @@ export function updatePasswordAction(newPass) {
   return async (dispatch) => {
     dispatch(updatePassword());
 
-    console.log(newPass, 'Actualizando usuario');
     try {
       const result = await clientAxios.put('/auth/login/1', newPass);
-      console.log(result.data);
       dispatch(updatePasswordSuccess());
     } catch (error) {
       console.log(error);
