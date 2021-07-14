@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import {
   Button,
   Container,
@@ -7,6 +8,7 @@ import {
   Textarea,
   Text,
   Content,
+  Toast,
 } from 'native-base';
 import React, { useState } from 'react';
 import { View } from 'react-native';
@@ -39,21 +41,24 @@ const typeOperation = [
 const Incident = () => {
   const dispatch = useDispatch();
 
+  const navigation = useNavigation();
+
   const routing = useSelector((state) => state.routings.routing);
   // console.log(routing, ' Incident');
 
-  const [categoryIncident, setCategoryIncident] = useState('');
-  const [typeIncident, setTypeIncident] = useState('');
+  const [categoryIncident, setCategoryIncident] = useState(0);
+  const [typeIncident, setTypeIncident] = useState(0);
   const [incidentDescription, setIncidentDescription] = useState('');
   const [mensaje, setMensaje] = useState(null);
 
   const handleSubmit = () => {
     if (
-      categoryIncident === '' ||
-      typeIncident === '' ||
+      categoryIncident === 0 ||
+      typeIncident === 0 ||
       incidentDescription.trim() === ''
     ) {
-      setMensaje('Su nueva contraseña debe de ser de almenos 6 caracteres');
+      setMensaje('Seleccionar las caracteristicas y llenar la descripcion');
+      showToast();
       return;
     }
 
@@ -68,11 +73,23 @@ const Incident = () => {
 
     console.log(incidente, ' antes de guardar incidencia');
 
-    dispatch(registerIncidentActions(incidente));
+    // dispatch(registerIncidentActions(incidente));
 
-    setCategoryIncident(0);
-    setTypeIncident(0);
+    setCategoryIncident('0');
+    setTypeIncident('0');
     setIncidentDescription('');
+
+    navigation.navigate('Routing');
+  };
+
+  const showToast = () => {
+    if (mensaje) {
+      Toast.show({
+        text: mensaje,
+        duration: 3000,
+        type: 'warning',
+      });
+    }
   };
 
   if (!routing) return null;
@@ -92,7 +109,7 @@ const Incident = () => {
             >
               <Picker.Item label="-- Seleccionar Categoria --" value={0} />
               <Picker.Item label="Vehiculo" value={1} />
-              <Picker.Item label="Conductor" value={2} />
+              {/* <Picker.Item label="Conductor" value={2} /> */}
               <Picker.Item label="Transito" value={3} />
             </Picker>
           </Item>

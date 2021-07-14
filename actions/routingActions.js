@@ -1,3 +1,4 @@
+import { Toast } from 'native-base';
 import clientAxios from '../config/axios';
 import {
   GET_ROUTING,
@@ -19,6 +20,11 @@ export function getRoutingActions(id) {
     } catch (error) {
       console.log(error);
       dispatch(getRoutingError(true));
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
     }
   };
 }
@@ -49,14 +55,25 @@ export function startUpdateTimeAction(codRouting) {
     console.log(data);
 
     try {
-      const result = await clientAxios.put(`/routing/time/${1}`, data);
+      const result = await clientAxios.put(`/routing/time/${'1'}`, data);
       console.log(result.data.body);
 
       dispatch(startUpdateTimeSuccess(result.data.body));
+
+      Toast.show({
+        text: 'Se inicio la ruta correctamente',
+        duration: 3000,
+        type: 'success',
+      });
     } catch (error) {
       console.log(error);
 
       dispatch(startUpdateTimeError(false));
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
     }
   };
 }
@@ -83,14 +100,25 @@ export function endUpdateTimeAction(codRouting) {
     };
 
     try {
-      const result = await clientAxios.put(`/routing/time/${2}`, data);
+      const result = await clientAxios.put(`/routing/time/${'2'}`, data);
       console.log(result.data.body);
 
       dispatch(endUpdateTimeSuccess(result.data.body));
+
+      Toast.show({
+        text: 'Se finalizo la ruta correctamente',
+        duration: 3000,
+        type: 'success',
+      });
     } catch (error) {
       console.log(error);
 
       dispatch(endUpdateTimeError(false));
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
     }
   };
 }

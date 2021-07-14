@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Toast } from 'native-base';
 import clientAxios from '../config/axios';
 import tokenAuth from '../config/token';
 import {
@@ -17,7 +18,6 @@ export function loginActions(auth) {
   return async (dispatch) => {
     dispatch(login());
     try {
-
       const {
         data: {
           body: { token },
@@ -30,13 +30,14 @@ export function loginActions(auth) {
 
       dispatch(getUserAuthenticateAction());
     } catch (error) {
-      console.log(error);
-      // const alerta = {
-      //   msg: error.response.data.body.msg,
-      //   categoria: '',
-      // };
+      console.log(error.response.data.body);
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
 
-      // dispatch(loginError(true, alerta));
+      dispatch(loginError(true));
     }
   };
 }
@@ -50,9 +51,9 @@ const loginSuccess = (token) => ({
   payload: token,
 });
 
-const loginError = (estado, alerta) => ({
+const loginError = (estado) => ({
   type: LOGIN_ERROR,
-  payload: { estado, alerta },
+  payload: estado,
 });
 //#endregion
 
@@ -65,7 +66,6 @@ export function getUserAuthenticateAction() {
       tokenAuth(token);
     }
 
-
     try {
       const respuesta = await clientAxios.get('/auth/login');
       dispatch(setUser(respuesta.data.body));
@@ -74,6 +74,12 @@ export function getUserAuthenticateAction() {
     } catch (error) {
       console.log(error);
       dispatch(loginError());
+
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
     }
   };
 }
@@ -87,20 +93,32 @@ const setUser = (usuario) => ({
 // #region Actulizar contraseña
 export function updatePasswordAction(newPass) {
   return async (dispatch) => {
-    dispatch(updatePassword());
+    dispatch(updatePassword(true));
 
     try {
       const result = await clientAxios.put('/auth/login/1', newPass);
       dispatch(updatePasswordSuccess());
+
+      Toast.show({
+        text: 'Se actualizo correctamente el usuario',
+        duration: 3000,
+        type: 'success',
+      });
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
       dispatch(updatePasswordError(true));
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
     }
   };
 }
 
-const updatePassword = () => ({
+const updatePassword = (estado) => ({
   type: UPDATE_AUTH,
+  payload: estado,
 });
 
 const updatePasswordSuccess = () => ({

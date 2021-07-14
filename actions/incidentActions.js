@@ -1,3 +1,4 @@
+import { Toast } from 'native-base';
 import clientAxios from '../config/axios';
 import {
   ADD_INCIDENT,
@@ -26,10 +27,21 @@ export function registerIncidentActions(data) {
       console.log(body, 'Incidente Creador');
 
       dispatch(registerIncidentSuccess());
+
+      Toast.show({
+        text: 'Se registro el incidente correctamente',
+        duration: 3000,
+        type: 'success',
+      });
     } catch (error) {
       console.log(error);
 
       dispatch(registerIncidentError(true));
+      Toast.show({
+        text: error.response.data.body.msg,
+        duration: 3000,
+        type: error.response.data.body.status === 500 ? 'danger' : 'warning',
+      });
     }
   };
 }

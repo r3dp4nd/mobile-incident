@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Container, Form, H1, Input, Item, Text } from 'native-base';
+import {
+  Button,
+  Container,
+  Content,
+  Form,
+  H1,
+  Input,
+  Item,
+  Text,
+  Toast,
+  Spinner,
+} from 'native-base';
 import { View } from 'react-native';
 import globalStyles from '../styles/global';
 import { loginActions } from '../actions/authActions';
@@ -12,23 +23,30 @@ const Login = () => {
   // React Navigation
   const navigation = useNavigation();
 
-  const autenticado = useSelector(state => state.auths.autenticado)
+  const autenticado = useSelector((state) => state.auths.autenticado);
+  const loading = useSelector((state) => state.auths.loading);
 
   useEffect(() => {
     if (autenticado) {
       navigation.navigate('Routing');
     }
-  }, [autenticado])
+    if (loading) {
+      showSpinner();
+    }
+  }, [loading, autenticado]);
 
   // Seteando estados
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState(null);
 
+  console.log(mensaje);
+
   const submitForm = async () => {
     if (username.trim() === '' || password.trim() === '') {
       setMensaje('Ingrese su correo electronico y su contraseña');
-      console.log('campos vacios');
+      showToast();
+      console.log(mensaje);
       return;
     }
 
@@ -44,6 +62,18 @@ const Login = () => {
     setUsername('');
     setPassword('');
   };
+
+  const showToast = () => {
+    if (mensaje) {
+      Toast.show({
+        text: mensaje,
+        duration: 3000,
+        type: 'warning',
+      });
+    }
+  };
+
+  const showSpinner = () => loading && <Spinner color="red" />;
 
   return (
     <Container
@@ -89,6 +119,7 @@ const Login = () => {
           Cambiar Password
         </Text>
       </View>
+      {/* <Spinner color='red' /> */}
     </Container>
   );
 };
