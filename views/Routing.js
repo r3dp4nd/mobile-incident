@@ -6,29 +6,28 @@ import {
   CardItem,
   Content,
   H1,
+  H2,
   Text,
   Fab,
 } from 'native-base';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  endUpdateTimeAction,
+  startUpdateTimeAction,
+} from '../actions/routingActions';
 import globalStyles from '../styles/global';
 
 const Routing = () => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
 
   const usuario = useSelector((state) => state.auths.usuario);
   const routing = useSelector((state) => state.routings.routing);
   // console.log(routing, 'desde routing');
   // console.log(usuario);
-
-  const startRouting = () => {
-    console.log('Iniciando Ruta');
-  };
-
-  const endRouting = () => {
-    console.log('Terminando Ruta');
-  };
 
   const writeIncident = () => {
     navigation.navigate('Incident');
@@ -42,9 +41,37 @@ const Routing = () => {
   };
 
   if (!usuario) return null;
-  if (!routing) return null;
+  if (!routing)
+    return (
+      <Content style={{ backgroundColor: '#efefef', marginHorizontal: '2.5%' }}>
+        <Card style={{ height: 300 }}>
+          <H1 style={globalStyles.titulo}>
+            Bienvenido: {`${usuario.name} ${usuario.lastName}`}
+          </H1>
+
+          <H2
+            style={{
+              marginTop: 75,
+              textAlign: 'center',
+            }}
+          >
+            No tiene ninguna ruta activa
+          </H2>
+        </Card>
+      </Content>
+    );
 
   const { codRouting, codRoute, routingStartDate, routingEndDate } = routing;
+
+  const startRouting = () => {
+    dispatch(startUpdateTimeAction(codRouting));
+    console.log('Iniciando Ruta');
+  };
+
+  const endRouting = () => {
+    dispatch(endUpdateTimeAction(codRouting));
+    console.log('Terminando Ruta');
+  };
 
   return (
     <Content style={{ backgroundColor: '#efefef', marginHorizontal: '2.5%' }}>
@@ -77,12 +104,18 @@ const Routing = () => {
           <Button
             rounded
             success
+            // disabled={routingStartDate ? true : false}
             style={styles.buttons}
             onPress={() => startRouting()}
           >
             <Text>Iniciar</Text>
           </Button>
-          <Button rounded style={styles.buttons} onPress={() => endRouting()}>
+          <Button
+            rounded
+            style={styles.buttons}
+            // disabled={routingEndDate ? true : false}
+            onPress={() => endRouting()}
+          >
             <Text>Terminar</Text>
           </Button>
           <Button
