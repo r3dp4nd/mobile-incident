@@ -15,7 +15,7 @@ export function getRoutingActions(id) {
 
     try {
       const result = await clientAxios.get(`/routing/${id}`);
-      // console.log(result.data.body);
+      console.log(result.data.body);
       dispatch(getRoutingSuccess(result.data.body));
     } catch (error) {
       console.log(error);

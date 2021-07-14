@@ -49,7 +49,6 @@ const NewPassword = () => {
     const user = { username: username.toLowerCase(), password, newPassword };
 
     // enviar
-    console.log(user, 'Actualizando Contraseña');
     dispatch(updatePasswordAction(user));
 
     setUsername('');

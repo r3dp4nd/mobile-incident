@@ -30,7 +30,6 @@ export function loginActions(auth) {
 
       dispatch(getUserAuthenticateAction());
     } catch (error) {
-      console.log(error.response.data.body);
       Toast.show({
         text: error.response.data.body.msg,
         duration: 3000,
@@ -72,7 +71,6 @@ export function getUserAuthenticateAction() {
 
       dispatch(getRoutingActions(respuesta.data.body.codUser));
     } catch (error) {
-      console.log(error);
       dispatch(loginError());
 
       Toast.show({
@@ -105,7 +103,6 @@ export function updatePasswordAction(newPass) {
         type: 'success',
       });
     } catch (error) {
-      console.log(error.response);
       dispatch(updatePasswordError(true));
       Toast.show({
         text: error.response.data.body.msg,

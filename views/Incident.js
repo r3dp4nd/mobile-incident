@@ -44,7 +44,6 @@ const Incident = () => {
   const navigation = useNavigation();
 
   const routing = useSelector((state) => state.routings.routing);
-  // console.log(routing, ' Incident');
 
   const [categoryIncident, setCategoryIncident] = useState(0);
   const [typeIncident, setTypeIncident] = useState(0);
@@ -75,8 +74,8 @@ const Incident = () => {
 
     // dispatch(registerIncidentActions(incidente));
 
-    setCategoryIncident('0');
-    setTypeIncident('0');
+    setCategoryIncident(0);
+    setTypeIncident(0);
     setIncidentDescription('');
 
     navigation.navigate('Routing');
@@ -105,6 +104,7 @@ const Incident = () => {
               note
               mode="dropdown"
               style={{ height: 50 }}
+              selectedValue={categoryIncident}
               onValueChange={(value) => setCategoryIncident(value)}
             >
               <Picker.Item label="-- Seleccionar Categoria --" value={0} />

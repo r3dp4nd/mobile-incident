@@ -26,18 +26,17 @@ const Routing = () => {
 
   const usuario = useSelector((state) => state.auths.usuario);
   const routing = useSelector((state) => state.routings.routing);
-  // console.log(routing, 'desde routing');
-  // console.log(usuario);
+
 
   const writeIncident = () => {
     navigation.navigate('Incident');
-    console.log('Enviando a incidente');
   };
 
   const convertDateFormat = (string) => {
-    const info = string.substring(0, 10).split('-');
+    const fecha = new Date(string);
     // const info = string.split('-');
-    return info[2] + '/' + info[1] + '/' + info[0];
+    return `${fecha.toLocaleDateString()} - ${fecha.toLocaleTimeString()}`;
+    // return info[2] + '/' + info[1] + '/' + info[0];
   };
 
   if (!usuario) return null;
@@ -104,7 +103,7 @@ const Routing = () => {
           <Button
             rounded
             success
-            // disabled={routingStartDate ? true : false}
+            disabled={routingStartDate ? true : false}
             style={styles.buttons}
             onPress={() => startRouting()}
           >
@@ -113,7 +112,7 @@ const Routing = () => {
           <Button
             rounded
             style={styles.buttons}
-            // disabled={routingEndDate ? true : false}
+            disabled={routingStartDate ? false : true}
             onPress={() => endRouting()}
           >
             <Text>Terminar</Text>
@@ -121,6 +120,7 @@ const Routing = () => {
           <Button
             rounded
             danger
+            disabled={routingStartDate ? false : true}
             style={styles.buttons}
             onPress={() => writeIncident()}
           >

@@ -17,14 +17,12 @@ export function registerIncidentActions(data) {
       description: data.incidentDescription,
     };
 
-    // console.log(incident);
 
     try {
       const {
         data: { body },
       } = await clientAxios.post('/incident', incident);
 
-      console.log(body, 'Incidente Creador');
 
       dispatch(registerIncidentSuccess());
 
@@ -34,7 +32,6 @@ export function registerIncidentActions(data) {
         type: 'success',
       });
     } catch (error) {
-      console.log(error);
 
       dispatch(registerIncidentError(true));
       Toast.show({
