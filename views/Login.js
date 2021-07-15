@@ -40,11 +40,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState(null);
 
-
   const submitForm = async () => {
     if (username.trim() === '' || password.trim() === '') {
       setMensaje('Ingrese su correo electronico y su contraseña');
       showToast();
+      setUsername('');
+      setPassword('');
       return;
     }
 

@@ -17,7 +17,17 @@ const CloseSession = () => {
     navigation.navigate('Login');
   };
 
-  return <Text onPress={() => handlePress()}>Cerrar Sesión</Text>;
+  return (
+    <Text
+      style={{
+        marginRight: 20,
+        color: 'red',
+      }}
+      onPress={() => handlePress()}
+    >
+      Cerrar Sesión
+    </Text>
+  );
 };
 
 export default CloseSession;

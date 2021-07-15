@@ -7,7 +7,7 @@ const globalStyles = StyleSheet.create({
   contenido: {
     flexDirection: "column",
     justifyContent: "center",
-    marginHorizontal: "2.5%",
+    marginHorizontal: "8.5%",
     flex: 1,
   },
   formulario: {
@@ -27,10 +27,13 @@ const globalStyles = StyleSheet.create({
   input: {
     backgroundColor: "#FFF",
     marginBottom: 20,
+    borderRadius: 10,
+
   },
   boton: {
     backgroundColor: "#009a9a",
     marginTop: 20,
+    borderRadius: 10,
   },
   botonTexto: {
     textTransform: "uppercase",
