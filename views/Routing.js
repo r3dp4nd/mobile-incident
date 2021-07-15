@@ -64,12 +64,10 @@ const Routing = () => {
 
   const startRouting = () => {
     dispatch(startUpdateTimeAction(codRouting));
-    console.log('Iniciando Ruta');
   };
 
   const endRouting = () => {
     dispatch(endUpdateTimeAction(codRouting));
-    console.log('Terminando Ruta');
   };
 
   return (

@@ -70,8 +70,6 @@ const Incident = () => {
 
     // PReparando para enviar
 
-    console.log(incidente, ' antes de guardar incidencia');
-
     // dispatch(registerIncidentActions(incidente));
 
     setCategoryIncident(0);

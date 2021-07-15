@@ -34,7 +34,6 @@ const NewPassword = () => {
       newPassword.trim() === ''
     ) {
       setMensaje('Todos los campos son obligatorios');
-      console.log(mensaje);
       showToast();
       return;
     }

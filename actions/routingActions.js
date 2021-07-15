@@ -7,6 +7,7 @@ import {
   UPDATE_ROUTING,
   UPDATE_ROUTING_SUCCESS,
   UPDATE_ROUTING_ERROR,
+  RESET_ROUTING,
 } from '../types';
 
 export function getRoutingActions(id) {
@@ -15,7 +16,6 @@ export function getRoutingActions(id) {
 
     try {
       const result = await clientAxios.get(`/routing/${id}`);
-      console.log(result.data.body);
       dispatch(getRoutingSuccess(result.data.body));
     } catch (error) {
       console.log(error);
@@ -52,11 +52,8 @@ export function startUpdateTimeAction(codRouting) {
       codRouting,
     };
 
-    console.log(data);
-
     try {
       const result = await clientAxios.put(`/routing/time/${'1'}`, data);
-      console.log(result.data.body);
 
       dispatch(startUpdateTimeSuccess(result.data.body));
 
@@ -101,7 +98,6 @@ export function endUpdateTimeAction(codRouting) {
 
     try {
       const result = await clientAxios.put(`/routing/time/${'2'}`, data);
-      console.log(result.data.body);
 
       dispatch(endUpdateTimeSuccess(result.data.body));
 
@@ -134,4 +130,14 @@ const endUpdateTimeSuccess = (data) => ({
 const endUpdateTimeError = (estado) => ({
   type: UPDATE_ROUTING_ERROR,
   payload: estado,
+});
+
+export function resetRoutingAction() {
+  return (dispatch) => {
+    dispatch(resetRouting());
+  };
+}
+
+const resetRouting = () => ({
+  type: RESET_ROUTING,
 });

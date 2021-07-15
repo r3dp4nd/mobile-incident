@@ -3,10 +3,11 @@ import {
   GET_ROUTING_ERROR,
   GET_ROUTING_SUCCESS,
   GET_UPDATEROUTING,
+  RESET_ROUTING,
   UPDATE_ROUTING,
   UPDATE_ROUTING_ERROR,
   UPDATE_ROUTING_SUCCESS,
-} from "../types";
+} from '../types';
 
 const initialState = {
   routing: null,
@@ -47,6 +48,15 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         routing: payload,
+      };
+
+    case RESET_ROUTING:
+      return {
+        ...state,
+        routing: null,
+        loading: false,
+        error: null,
+        getrouting: null,
       };
 
     default:

@@ -40,20 +40,17 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState(null);
 
-  console.log(mensaje);
 
   const submitForm = async () => {
     if (username.trim() === '' || password.trim() === '') {
       setMensaje('Ingrese su correo electronico y su contraseña');
       showToast();
-      console.log(mensaje);
       return;
     }
 
     const user = { username: username.toLowerCase(), password };
 
     // enviar
-    console.log(user, 'Datos del usuario');
 
     dispatch(loginActions(user));
 

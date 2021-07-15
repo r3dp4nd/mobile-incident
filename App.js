@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Root } from "native-base";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Button, Root } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { View } from 'react-native';
 
-import * as Font from "expo-font";
-import Login from "./views/Login";
-import NewPassword from "./views/NewPassword";
-import Incident from "./views/Incident";
-import Routing from "./views/Routing";
+import * as Font from 'expo-font';
+import Login from './views/Login';
+import NewPassword from './views/NewPassword';
+import Incident from './views/Incident';
+import Routing from './views/Routing';
 
 const Stack = createStackNavigator();
 
 // Redux
-import { Provider } from "react-redux";
-import store from "./store";
+import { Provider } from 'react-redux';
+import store from './store';
+import CloseSession from './components/CloseSession';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -27,8 +28,8 @@ export default function App() {
 
   const loadFonts = async () => {
     await Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
 
     setFontsLoaded(true);
@@ -47,7 +48,7 @@ export default function App() {
               name="Login"
               component={Login}
               options={{
-                title: "Iniciar Sesión",
+                title: 'Iniciar Sesión',
                 headerShown: false,
               }}
             />
@@ -55,7 +56,7 @@ export default function App() {
               name="NewPassword"
               component={NewPassword}
               options={{
-                title: "Iniciar Sesión",
+                title: 'Iniciar Sesión',
                 headerShown: false,
               }}
             />
@@ -63,14 +64,16 @@ export default function App() {
               name="Routing"
               component={Routing}
               options={{
-                title: "Ruta",
+                headerTitle: 'Ruta',
+                headerTitleAlign: 'center',
+                headerRight: () => <CloseSession />,
               }}
             />
             <Stack.Screen
               name="Incident"
               component={Incident}
               options={{
-                title: "Registrar Incidente",
+                title: 'Registrar Incidente',
               }}
             />
           </Stack.Navigator>

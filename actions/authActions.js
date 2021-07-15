@@ -6,6 +6,7 @@ import {
   LOGIN,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
+  RESET_AUTH,
   SET_USER,
   UPDATE_AUTH,
   UPDATE_AUTH_ERROR,
@@ -127,3 +128,13 @@ const updatePasswordError = (estado) => ({
   payload: estado,
 });
 //#endregion
+
+export function resetAuthAction() {
+  return (dispatch) => {
+    dispatch(resetAuth());
+  };
+}
+
+const resetAuth = () => ({
+  type: RESET_AUTH,
+});
